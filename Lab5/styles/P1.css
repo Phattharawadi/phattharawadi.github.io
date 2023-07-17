@@ -15,6 +15,6 @@ p {
 }
 
   /* Styles for mobile screens */
-@media only screen and (max-width: 100px) {
+@media only screen and (max-width: 480px) {
     /* Add your mobile styles here */
 }
