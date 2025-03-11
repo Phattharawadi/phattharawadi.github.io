@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Surprise Babe!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;600&family=Itim&display=swap');
+
+        :root {
+            --primary-color: #ff6b9d;
+            --secondary-color: #c2185b;
+            --accent-color: #ffb5d3;
+            --light-color: #fff9fb;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Mitr', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ffcdd2, #f8bbd0, #e1bee7, #d1c4e9);
+            background-size: 300% 300%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow: hidden;
+            animation: gradientAnimation 15s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%23ff6b9d' d='M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z'%3E%3C/path%3E%3C/svg%3E") no-repeat center center;
+            opacity: 0.7;
+            animation: float-up 10s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) scale(0.5) rotate(0deg);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) scale(1.2) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            position: relative;
+            z-index: 10;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 8px solid #fff;
+            outline: 2px dashed var(--primary-color);
+            outline-offset: -15px;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 3rem;
+            text-shadow: 3px 3px 0px rgba(255, 107, 157, 0.2);
+            font-family: 'Itim', cursive;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: "";
+            position: absolute;
+            height: 4px;
+            bottom: -10px;
+            left: 25%;
+            width: 50%;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            border-radius: 50%;
+        }
+
+        p {
+            color: var(--secondary-color);
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .photo-frame {
+            position: relative;
+            padding: 12px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+            margin: 0 auto 40px;
+            width: fit-content;
+            transform: rotate(-2deg);
+            transition: all 0.4s ease;
+        }
+
+        .photo-frame::before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 2px dashed var(--accent-color);
+            border-radius: 25px;
+            z-index: -1;
+        }
+
+        .photo-frame:hover {
+            transform: rotate(2deg) scale(1.03);
+        }
+
+        .album-image {
+            width: 300px;
+            height: 380px;
+            border-radius: 12px;
+            object-fit: cover;
+            transition: all 0.5s ease;
+            filter: brightness(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .ribbon {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            overflow: hidden;
+        }
+
+        .ribbon::before {
+            content: "♥";
+            position: absolute;
+            display: block;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            top: 15px;
+            right: 15px;
+            z-index: 1;
+            transform: rotate(-45deg);
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            font-size: 20px;
+            border-radius: 5px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .nav-button {
+            padding: 14px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-size: 1.2rem;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Mitr', sans-serif;
+        }
+
+        .nav-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .nav-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(194, 24, 91, 0.4);
+        }
+
+        .nav-button:hover::before {
+            left: 100%;
+        }
+
+        .nav-button:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 10px rgba(194, 24, 91, 0.3);
+        }
+
+        .cake-button {
+            display: none;
+            margin-top: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .cake-button .nav-button {
+            background: linear-gradient(45deg, #ff6b9d, #ff4081);
+            font-size: 1.4rem;
+            padding: 15px 40px;
+        }
+
+        .next-button {
+            display: block;
+        }
+
+        .loading-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-hearts img {
+            width: 100px;
+            height: 100px;
+            animation: beatHeart 1.2s infinite;
+        }
+
+        @keyframes beatHeart {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            40% { transform: scale(1); }
+            60% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin: 15px;
+                border-width: 5px;
+                outline-offset: -8px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            p {
+                font-size: 1.1rem;
+            }
+            
+            .album-image {
+                width: 250px;
+                height: 320px;
+            }
+            
+            .button-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-button {
+                width: 100%;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Loading animation -->
+<div class="loading-hearts" id="loading">
+    <img src="data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%23ff6b9d' d='M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z'%3E%3C/path%3E%3C/svg%3E" alt="Heart">
+</div>
+
+<!-- Floating hearts background -->
+<div class="floating-hearts" id="hearts"></div>
+
+<div class="container animate__animated animate__fadeIn animate__delay-1s" id="contentContainer">
+    <h1 class="animate__animated animate__heartBeat animate__delay-2s" id="title"> Surprise Babe! </h1>
+    <p class="animate__animated animate__fadeIn animate__delay-2s" id="message">ขอให้วันนี้เป็นวันพิเศษที่เต็มไปด้วยความสุขและรอยยิ้ม ❤️</p>
+    
+    <div class="photo-frame">
+        <div class="ribbon"></div>
+        <img id="albumImage" src="imgs/babe/babe1.jpg" alt="Surprise" class="album-image">
+    </div>
+    
+    <div class="button-container animate__animated animate__fadeIn animate__delay-3s">
+        <button class="nav-button" id="previousButton" onclick="previousSlide()">❤️ Previous</button>
+        <button class="nav-button next-button" id="nextButton" onclick="nextSlide()">Next ❤️</button>
+    </div>
+    
+    <div class="cake-button animate__animated animate__bounceIn" id="cakeButton">
+        <a href="cake.html">
+            <button class="nav-button">✨ เป่าเค้กกัน! 🎂</button>
+        </a>
+    </div>
+</div>
+
+<script>
+    const slides = [
+        {
+            image: 'imgs/babe/babe1.jpg',
+            title: '✨ Surprise Babe! ✨',
+            message: 'ขอให้วันนี้เป็นวันดีๆ ของเบ้บนะ ขอให้มีแต่เรื่องดีๆ เข้ามา 💖'
+        },
+        {
+            image: 'imgs/babe/babe2.jpg',
+            title: '🎂 วันเกิดปีนี้ 🎂',
+            message: 'ขอให้เบ้บสมหวังทุกอย่างที่หวังไว้ แข่งก็ขอให้ชนะปังๆ 💕'
+        },
+        {
+            image: 'imgs/babe/babe3.jpg',
+            title: '💪 ขอให้แข็งแรง 💪',
+            message: 'ขอให้เบ้บสุขภาพแข็งแรง ไม่เจ็บ ไม่ป่วย🌈'
+        },
+        {
+            image: 'imgs/babe/babe4.jpg',
+            title: '🧘‍♀️ อย่าปวดหลัง 🧘‍♀️',
+            message: 'ขอให้เบ้บไม่ปวดหลังนะ 😘'
+        },
+        {
+            image: 'imgs/babe/babe5.jpg',
+            title: '💰 เฮงๆ รวยๆ 💰',
+            message: 'ขอให้เบ้บมีเงินเยอะๆ จะได้เลี้ยงเค้าทุกวัน 555 💎'
+        },
+        {
+            image: 'imgs/babe/babe6.jpg',
+            title: '🌟 ขอให้เป็นตัวเองแบบนี้ต่อไป 🌟',
+            message: 'ขอให้เบ้บเป็นตัวของตัวเองแบบนี้ไปนานๆ นะ 💓'
+        },
+        {
+            image: 'imgs/babe/babe7.jpg',
+            title: '💞 อยู่ตรงนี้เสมอ 💞',
+            message: 'เค้าจะอยู่ข้างๆ เบ้บเสมอ คอยป่วนเบ้บจะได้ไม่เหงา ยักที่ฉุดดดด 💘'
+        }
+    ];
+
+    let currentIndex = 0;
+
+    // สร้างหัวใจลอยๆ
+    function createHearts() {
+        const container = document.getElementById('hearts');
+        const heartCount = 20;
+        
+        for (let i = 0; i < heartCount; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            
+            // สุ่มตำแหน่งเริ่มต้น
+            const startX = Math.random() * 100;
+            
+            // สุ่มขนาด
+            const scale = Math.random() * 1.5 + 0.5;
+            
+            // สุ่มความเร็ว (ระยะเวลาในการเคลื่อนที่)
+            const duration = Math.random() * 15 + 10;
+            
+            // สุ่มความโปร่งใส
+            const opacity = Math.random() * 0.5 + 0.3;
+            
+            heart.style.left = `${startX}%`;
+            heart.style.transform = `scale(${scale})`;
+            heart.style.animationDuration = `${duration}s`;
+            heart.style.opacity = opacity;
+            heart.style.animationDelay = `${Math.random() * 5}s`;
+            
+            container.appendChild(heart);
+        }
+    }
+
+    function updateSlide() {
+        const contentContainer = document.getElementById('contentContainer');
+        const albumImage = document.getElementById('albumImage');
+        const title = document.getElementById('title');
+        const message = document.getElementById('message');
+        const cakeButton = document.getElementById('cakeButton');
+        const nextButton = document.getElementById('nextButton');
+
+        // เพิ่ม animation ตอนเปลี่ยนสไลด์
+        contentContainer.classList.add('animate__fadeOut');
+        
+        setTimeout(() => {
+            albumImage.src = slides[currentIndex].image;
+            title.textContent = slides[currentIndex].title;
+            message.textContent = slides[currentIndex].message;
+            
+            // รีเซ็ต animation class เพื่อเล่น animation ใหม่
+            title.classList.remove('animate__heartBeat');
+            message.classList.remove('animate__fadeIn');
+            
+            // Force reflow
+            void title.offsetWidth;
+            void message.offsetWidth;
+            
+            // เพิ่ม animation ใหม่
+            title.classList.add('animate__heartBeat');
+            message.classList.add('animate__fadeIn');
+            
+            contentContainer.classList.remove('animate__fadeOut');
+            contentContainer.classList.add('animate__fadeIn');
+
+            // แสดงปุ่มเป่าเค้กเมื่อถึงสไลด์สุดท้าย
+            if (currentIndex === slides.length - 1) {
+                cakeButton.style.display = 'block';
+                nextButton.style.display = 'none';
+            } else {
+                cakeButton.style.display = 'none';
+                nextButton.style.display = 'block';
+            }
+        }, 500);
+    }
+
+    function nextSlide() {
+        if (currentIndex < slides.length - 1) {
+            currentIndex++;
+            updateSlide();
+        }
+    }
+
+    function previousSlide() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateSlide();
+        }
+    }
+
+    // เริ่มทำงานเมื่อโหลดหน้าเสร็จ
+    window.addEventListener('load', function() {
+        // สร้างหัวใจลอย
+        createHearts();
+        
+        // ซ่อน loading screen หลังจาก 2 วินาที
+        setTimeout(function() {
+            document.getElementById('loading').style.display = 'none';
+        }, 2000);
+        
+        // อัพเดทสไลด์เริ่มต้น
+        updateSlide();
+    });
+
+    // เพิ่ม event listener สำหรับปุ่มกดบนคีย์บอร์ด
+    document.addEventListener('keydown', function(event) {
+        if (event.code === 'ArrowRight') {
+            nextSlide();
+        } else if (event.code === 'ArrowLeft') {
+            previousSlide();
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Chocolate Birthday Cake</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;700&family=Poppins:wght@400;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1, h2, button {
+            font-family: 'Caveat', cursive;
+        }
+
+        /* พื้นหลังหวานๆ */
+        .sweet-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 192, 203, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 70% 60%, rgba(255, 182, 193, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 228, 225, 0.3) 0%, transparent 40%);
+        }
+
+        /* ลูกกวาดและขนมหวาน */
+        .candy {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            animation: float-candy 10s ease-in-out infinite;
+        }
+        
+        .candy.lollipop {
+            width: 40px;
+            height: 40px;
+            background: repeating-radial-gradient(circle, #ff80ab, #f48fb1 10%, #ff80ab 20%);
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .candy.lollipop::after {
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            width: 8px;
+            height: 50px;
+            background-color: white;
+            border-radius: 4px;
+            transform: translateX(-50%) rotate(15deg);
+        }
+        
+        .candy.round {
+            width: 25px;
+            height: 25px;
+            background: radial-gradient(circle, #f8bbd0, #ec407a);
+            border: 3px solid #f48fb1;
+        }
+        
+        .candy.heart {
+            width: 30px;
+            height: 30px;
+            background-color: #f06292;
+            transform: rotate(-45deg);
+            position: absolute;
+        }
+        
+        .candy.heart:before, .candy.heart:after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #f06292;
+            border-radius: 50%;
+        }
+        
+        .candy.heart:before {
+            top: -15px;
+            left: 0;
+        }
+        
+        .candy.heart:after {
+            top: 0;
+            left: 15px;
+        }
+
+        @keyframes float-candy {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* ลูกโป่งหวานๆ */
+        .balloon {
+            position: absolute;
+            width: 45px;
+            height: 55px;
+            background: radial-gradient(circle at 70% 30%, #fff 0%, transparent 20%), 
+                        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 20%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: inset 0 -7px 12px rgba(0, 0, 0, 0.1);
+            animation: float 12s ease-in-out infinite;
+            opacity: 0.85;
+        }
+
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 25px;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-25px) rotate(3deg); }
+            66% { transform: translateY(-15px) rotate(-2deg); }
+        }
+
+        /* ดาวประดับแบบน่ารัก */
+        .star {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ffeb3b;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: twinkle 4s infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.8; transform: rotate(0deg) scale(1); }
+            50% { opacity: 1; transform: rotate(20deg) scale(1.3); }
+        }
+
+        /* จุดสีน่ารักๆ */
+        .dot {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: pulse 5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.4); opacity: 0.3; }
+        }
+
+        /* เมฆหวานๆ */
+        .cloud {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: float-cloud 15s linear infinite;
+        }
+        
+        .cloud:before, .cloud:after {
+            content: '';
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+        }
+        
+        @keyframes float-cloud {
+            0% { transform: translateX(-100vw); }
+            100% { transform: translateX(100vw); }
+        }
+
+        /* ส่วนของเค้ก */
+        .cake-container {
+            position: relative;
+            text-align: center;
+            width: 60vw;
+            max-width: 650px;
+            height: 100px;
+            margin: 180px auto;
+            z-index: 10;
+        }
+        
+        .cake {
+            width: 100%;
+            height: 220px;
+            background-color: #ad4281; /* สีใหม่น่ารักกว่า */
+            border-radius: 25px;
+            position: relative;
+            background-image: linear-gradient(45deg, #ad4281, #c2185b);
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cake-top {
+            width: 100%;
+            height: 70px;
+            background-color: #e91e63;
+            border-radius: 25px 25px 0 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-image: radial-gradient(circle, #f06292, #e91e63);
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+        
+        .cake-bottom {
+            width: 100%;
+            height: 60px;
+            background-color: #ad4281;
+            border-radius: 0 0 25px 25px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            box-shadow: inset 0px -4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* ช็อคโกแลตเข้มข้นไหลลงมา */
+        .chocolate-drip {
+            position: absolute;
+            top: -5px;
+            width: 30px;
+            height: 40px;
+            background-color: #880e4f;
+            border-radius: 0 0 15px 15px;
+            z-index: 3;
+        }
+        
+        /* วิปครีมรอบเค้ก */
+        .whipped-cream {
+            position: absolute;
+            top: -20px;
+            width: 100%;
+            height: 40px;
+            z-index: 2;
+        }
+        
+        .cream-blob {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 0px 3px 5px rgba(0,0,0,0.1);
+        }
+        
+        /* การตกแต่งเค้ก */
+        .chocolate-bar {
+            position: absolute;
+            width: 25px;
+            height: 35px;
+            background-color: #4a148c;
+            top: -45px;
+            z-index: 4;
+            transform: rotate(5deg);
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .strawberry {
+            position: absolute;
+            width: 24px;
+            height: 32px;
+            background-color: #f44336;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            top: -40px;
+            z-index: 4;
+        }
+        
+        .strawberry::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #2e7d32;
+            border-radius: 0 50% 0 50%;
+            top: -6px;
+            left: 6px;
+            transform: rotate(45deg);
+        }
+        
+        .chocolate-covered-strawberry {
+            position: absolute;
+            z-index: 4;
+        }
+        
+        .chocolate-base {
+            width: 24px;
+            height: 26px;
+            background-color: #6a1b9a;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: relative;
+        }
+        
+        .strawberry-tip {
+            width: 16px;
+            height: 20px;
+            background-color: #e53935;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: absolute;
+            top: -12px;
+            left: 4px;
+        }
+        
+        .chocolate-truffle {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background-color: #6a1b9a;
+            border-radius: 50%;
+            box-shadow: inset -3px -3px 5px rgba(0,0,0,0.3);
+            top: -35px;
+            z-index: 4;
+        }
+        
+        .chocolate-truffle::after {
+            content: '';
+            position: absolute;
+            width: 9px;
+            height: 9px;
+            background-color: #9c27b0;
+            border-radius: 50%;
+            top: 6px;
+            left: 6px;
+        }
+        
+        .sugar-pearl {
+            position: absolute;
+            width: 9px;
+            height: 9px;
+            background-color: #f8bbd0;
+            border-radius: 50%;
+            box-shadow: 0px 2px 3px rgba(0,0,0,0.2);
+            z-index: 5;
+        }
+        
+        /* รูปแบบเทียน */
+        .candles {
+            position: absolute;
+            top: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: space-evenly;
+            width: 70%;
+            z-index: 10;
+        }
+        
+        .candle {
+            position: relative;
+            width: 18px;
+            height: 100px;
+            background: linear-gradient(to bottom, #fff59d, #ffee58);
+            border-radius: 8px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .candle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            background: #fbc02d;
+            top: 15px;
+            left: 0;
+            border-radius: 5px;
+        }
+        
+        .candle-flame {
+            position: absolute;
+            top: -25px;
+            left: 1.5px;
+            width: 15px;
+            height: 25px;
+            background: radial-gradient(ellipse at center, #ffeb3b 0%, #ff9800 70%, #ff5722 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 0 15px 5px rgba(255, 165, 0, 0.6);
+            animation: flicker-flame 1s infinite;
+            transform-origin: center bottom;
+        }
+        
+        @keyframes flicker-flame {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1) rotate(-2deg);
+                box-shadow: 0 0 10px 5px rgba(255, 165, 0, 0.5);
+            }
+            25% {
+                transform: scale(1.05) rotate(2deg);
+                box-shadow: 0 0 12px 6px rgba(255, 165, 0, 0.6);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(0.95) rotate(-1deg);
+                box-shadow: 0 0 9px 4px rgba(255, 165, 0, 0.4);
+            }
+            75% {
+                transform: scale(1.05) rotate(1deg);
+                box-shadow: 0 0 11px 5px rgba(255, 165, 0, 0.5);
+            }
+        }
+        
+        /* ปุ่มที่น่ารัก */
+        button {
+            display: block;
+            margin: 30px auto;
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            background: linear-gradient(135deg, #f48fb1, #ec407a);
+            color: white;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 10;
+            font-family: 'Pacifico', cursive;
+        }
+        
+        button:hover {
+            background: linear-gradient(135deg, #ec407a, #d81b60);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        /* คอนเฟตติสำหรับเฉลิมฉลอง */
+        .confetti {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background-color: #f44336;
+            opacity: 0;
+            transform: translateY(0) rotate(0);
+            pointer-events: none;
+            z-index: 20;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                opacity: 1;
+                transform: translateY(-100vh) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+        
+        /* ประกายวิบวับ */
+        .sparkle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 0 15px 3px white;
+            opacity: 0;
+            animation: sparkle 4s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes sparkle {
+            0% { transform: scale(0); opacity: 0; }
+            20% { transform: scale(1); opacity: 1; }
+            40% { transform: scale(0.8); opacity: 0.8; }
+            70% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+        
+        /* ข้อความวันเกิด */
+        .birthday-text {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.5rem;
+            color: #d81b60;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.2), 0 0 15px rgba(255,255,255,0.5);
+            position: absolute;
+            top: 5%;
+            width: 100%;
+            text-align: center;
+            z-index: 5;
+            animation: pulse-text 2s infinite;
+        }
+        
+        @keyframes pulse-text {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* ริบบิ้นประดับ */
+        .ribbon {
+            position: absolute;
+            width: 200px;
+            height: 20px;
+            background-color: #e91e63;
+            transform: rotate(-45deg);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="sweet-background"></div>
+    
+    <div class="birthday-text">Happy Birthday!</div>
+    
+    <div class="cake-container">
+        <div class="cake">
+            <div class="cake-top"></div>
+            <div class="cake-bottom"></div>
+            
+            <!-- ช็อคโกแลตไหล -->
+            <div id="drips"></div>
+            
+            <!-- วิปครีม -->
+            <div class="whipped-cream" id="cream"></div>
+            
+            <!-- ของตกแต่ง -->
+            <div id="decorations"></div>
+            
+            <!-- เทียนเค้ก -->
+            <div class="candles">
+                <div class="candle"><div class="candle-flame"></div></div>
+                <div class="candle"><div class="candle-flame"></div></div>
+                <div class="candle"><div class="candle-flame"></div></div>
+            </div>
+        </div>
+    </div>
+    <button onclick="blowOutCandles()">อธิฐานเสร็จแล้วกดตรงนี้</button>
+
+    <script>
+        // สร้างช็อคโกแลตไหล
+        const dripsContainer = document.getElementById('drips');
+        for (let i = 0; i < 18; i++) {
+            const drip = document.createElement('div');
+            drip.className = 'chocolate-drip';
+            drip.style.left = `${Math.random() * 90 + 5}%`;
+            drip.style.height = `${Math.random() * 35 + 20}px`;
+            dripsContainer.appendChild(drip);
+        }
+        
+        // สร้างก้อนวิปครีม
+        const creamContainer = document.getElementById('cream');
+        for (let i = 0; i < 30; i++) {
+            const blob = document.createElement('div');
+            blob.className = 'cream-blob';
+            const size = Math.random() * 28 + 20;
+            blob.style.width = `${size}px`;
+            blob.style.height = `${size}px`;
+            blob.style.left = `${i * (100/30)}%`;
+            blob.style.top = `${Math.random() * 12 - 5}px`;
+            creamContainer.appendChild(blob);
+        }
+        
+        // สร้างของตกแต่ง
+        const decorationsContainer = document.getElementById('decorations');
+        
+        // แท่งช็อคโกแลต
+        for (let i = 0; i < 4; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'chocolate-bar';
+            bar.style.left = `${15 + i * 25}%`;
+            bar.style.transform = `rotate(${Math.random() * 40 - 20}deg)`;
+            decorationsContainer.appendChild(bar);
+        }
+        
+        // สตรอเบอร์รี่เคลือบช็อคโกแลต
+        for (let i = 0; i < 5; i++) {
+            const strawberry = document.createElement('div');
+            strawberry.className = 'chocolate-covered-strawberry';
+            strawberry.style.left = `${10 + i * 20}%`;
+            strawberry.style.top = '-35px';
+            
+            const base = document.createElement('div');
+            base.className = 'chocolate-base';
+            
+            const tip = document.createElement('div');
+            tip.className = 'strawberry-tip';
+            
+            strawberry.appendChild(base);
+            strawberry.appendChild(tip);
+            decorationsContainer.appendChild(strawberry);
+        }
+        
+        // ทรัฟเฟิลช็อคโกแลต
+        for (let i = 0; i < 6; i++) {
+            const truffle = document.createElement('div');
+            truffle.className = 'chocolate-truffle';
+            truffle.style.left = `${5 + i * 18}%`;
+            decorationsContainer.appendChild(truffle);
+        }
+        
+        // ไข่มุกน้ำตาล
+        for (let i = 0; i < 30; i++) {
+            const pearl = document.createElement('div');
+            pearl.className = 'sugar-pearl';
+            pearl.style.left = `${Math.random() * 90 + 5}%`;
+            pearl.style.top = `${Math.random() * 30 - 40}px`;
+            // สลับสีหวานๆ
+            const colors = ['#f8bbd0', '#bbdefb', '#b2ebf2', '#c8e6c9', '#e1bee7'];
+            pearl.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            decorationsContainer.appendChild(pearl);
+        }
+        
+        function blowOutCandles() {
+            // ดับเทียน
+            const flames = document.querySelectorAll('.candle-flame');
+            flames.forEach(flame => {
+                flame.style.animation = 'none';
+                flame.style.opacity = 0;
+                flame.style.boxShadow = 'none';
+            });
+            
+            // สร้างคอนเฟตติเฉลิมฉลอง
+            createConfetti();
+            
+            // เปลี่ยนข้อความปุ่ม
+            const button = document.querySelector('button');
+            button.textContent = "23 ปีแล้ว สุขสันต์วันเกิดน้าาา! 🎂💖";
+            button.style.background = "linear-gradient(135deg, #7b1fa2, #e91e63)";
+            
+            // เล่นเสียง (ถ้าต้องการ)
+            // const audio = new Audio('happy-birthday.mp3');
+            // audio.play();
+            
+            // คืนค่าเทียนหลังจาก 6 วินาที
+            setTimeout(() => {
+                flames.forEach(flame => {
+                    flame.style.animation = 'flicker-flame 1s infinite';
+                    flame.style.opacity = 1;
+                    flame.style.boxShadow = '0 0 10px 5px rgba(255, 165, 0, 0.5)';
+                });
+                button.textContent = "อธิฐานเสร็จแล้วกดตรงนี้";
+                button.style.background = "linear-gradient(135deg, #f48fb1, #ec407a)";
+            }, 6000);
+        }
+        
+        function createConfetti() {
+            const colors = ['#f48fb1', '#ce93d8', '#90caf9', '#80deea', '#c5e1a5', 
+                           '#fff59d', '#ffcc80', '#ffab91', '#b39ddb', '#81d4fa', 
+                           '#a5d6a7', '#ffe082', '#ffab91', '#bcaaa4', '#b0bec5'];
+            
+            // สร้างคอนเฟตติ 150 ชิ้น
+            for (let i = 0; i < 150; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    
+                    // สุ่มคุณสมบัติคอนเฟตติ
+                    const size = Math.random() * 10 + 6;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const shape = Math.random() > 0.5 ? '50%' : 
+                                 (Math.random() > 0.5 ? '0' : '50% 0 50% 0');
+                    
+                    // ใส่สไตล์
+                    confetti.style.width = `${size}px`;
+                    confetti.style.height = `${size}px`;
+                    confetti.style.backgroundColor = color;
+                    confetti.style.borderRadius = shape;
+                    confetti.style.left = `${Math.random() * 100}vw`;
+                    
+                    // แอนิเมชัน
+                    confetti.style.animation = `confetti-fall ${Math.random() * 4 + 2}s linear forwards`;
+                    
+                    document.body.appendChild(confetti);
+                    
+                    // ลบคอนเฟตติหลังจากแอนิเมชันเสร็จสิ้น
+                    setTimeout(() => {
+                        document.body.removeChild(confetti);
+                    }, 6000);
+                    
+                }, Math.random() * 800);
+            }
+        }
+
+        // สร้างพื้นหลังงานปาร์ตี้หวานๆ
+        function createSweetBackground() {
+            const sweetBg = document.createElement('div');
+            sweetBg.className = 'sweet-background';
+            document.body.appendChild(sweetBg);
+            
+            // สร้างจุดสีหวานๆในพื้นหลัง
+            const colors = ['#f8bbd0', '#e1bee7', '#d1c4e9', '#c5cae9', '#bbdefb', '#b3e5fc', '#b2ebf2'];
+            for (let i = 0; i < 30; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                const size = Math.random() * 120 + 50;
+                dot.style.width = `${size}px`;
+                dot.style.height = `${size}px`;
+                dot.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                dot.style.left = `${Math.random() * 100}%`;
+                dot.style.top = `${Math.random() * 100}%`;
+                dot.style.animationDuration = `${Math.random() * 5 + 3}s`;
+                dot.style.animationDelay = `${Math.random() * 2}s`;
+                sweetBg.appendChild(dot);
+            }
+            
+            // สร้างลูกโป่ง
+            const balloonColors = ['#f06292', '#ba68c8', '#7986cb', '#4fc3f7', '#4dd0e1', '#81c784', '#ffb74d'];
+            for (let i = 0; i < 12; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.style.left = `${Math.random() * 90 + 5}%`;
+                balloon.style.top = `${Math.random() * 60 + 5}%`;
+                balloon.style.backgroundColor = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+                balloon.style.animationDuration = `${Math.random() * 8 + 8}s`;
+                balloon.style.animationDelay = `${Math.random() * 5}s`;
+                document.body.appendChild(balloon);
+            }
+            
+            const starColors = ['#ffd54f', '#ffecb3', '#fff176', '#ffcc80', '#ffab91'];
+            for (let i = 0; i < 20; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.backgroundColor = starColors[Math.floor(Math.random() * starColors.length)];
+                star.style.animationDuration = `${Math.random() * 4 + 2}s`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                document.body.appendChild(star);
+            }
+
+            // สร้างเมฆหวานๆ
+            for (let i = 0; i < 5; i++) {
+                const cloud = document.createElement('div');
+                cloud.className = 'cloud';
+                cloud.style.width = `${Math.random() * 200 + 100}px`;
+                cloud.style.height = `${Math.random() * 60 + 40}px`;
+                cloud.style.left = `${Math.random() * 100}%`;
+                cloud.style.top = `${Math.random() * 30 + 10}%`;
+                cloud.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                cloud.style.animationDelay = `${Math.random() * 5}s`;
+                document.body.appendChild(cloud);
+            }
+
+            // สร้างลูกกวาดหวานๆ
+            const candyTypes = ['lollipop', 'round', 'heart'];
+            for (let i = 0; i < 15; i++) {
+                const candy = document.createElement('div');
+                candy.className = `candy ${candyTypes[Math.floor(Math.random() * candyTypes.length)]}`;
+                candy.style.left = `${Math.random() * 100}%`;
+                candy.style.top = `${Math.random() * 100}%`;
+                candy.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                candy.style.animationDelay = `${Math.random() * 3}s`;
+                document.body.appendChild(candy);
+            }
+        }
+
+        // เรียกใช้ฟังก์ชันสร้างพื้นหลัง
+        createSweetBackground();
+
+        // สร้างประกายวิบวับ
+        function createSparkles() {
+            for (let i = 0; i < 50; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = `${Math.random() * 100}%`;
+                sparkle.style.top = `${Math.random() * 100}%`;
+                sparkle.style.animationDelay = `${Math.random() * 4}s`;
+                document.body.appendChild(sparkle);
+            }
+        }
+
+        // เรียกใช้ฟังก์ชันสร้างประกายวิบวับ
+        createSparkles();
+    </script>
+</body>
+</html>
